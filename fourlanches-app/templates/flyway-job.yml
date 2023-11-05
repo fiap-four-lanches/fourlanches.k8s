@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "fourlanches-app.fullname" . }}-flyway-fourlanches-migration
+  labels:
+  {{- include "fourlanches-app.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      containers:
+      - args: {{- toYaml .Values.flywayFourlanchesMigration.flyway.args | nindent
+          8 }}
+        env:
+        - name: FLYWAY_URL
+          value: {{ quote .Values.flywayFourlanchesMigration.flyway.env.flywayUrl
+            }}
+        - name: FLYWAY_USER
+          valueFrom:
+            secretKeyRef:
+              key: SPRING_DATASOURCE_USERNAME
+              name: {{ include "fourlanches-app.fullname" . }}-fourlanches-secret
+        - name: FLYWAY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: SPRING_DATASOURCE_PASSWORD
+              name: {{ include "fourlanches-app.fullname" . }}-fourlanches-secret
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.flywayFourlanchesMigration.flyway.image.repository }}:{{
+          .Values.flywayFourlanchesMigration.flyway.image.tag | default .Chart.AppVersion
+          }}
+        name: flyway
+        resources: {}
+        volumeMounts:
+        - mountPath: /flyway/sql
+          name: sql
+      restartPolicy: Never
+      volumes:
+      - configMap:
+          name: {{ include "fourlanches-app.fullname" . }}-flyway-config
+        name: sql

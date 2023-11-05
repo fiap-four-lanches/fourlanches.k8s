@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "fourlanches-app.fullname" . }}-fourlanches-deployment
+  labels:
+    app: fourlanches
+  {{- include "fourlanches-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.fourlanchesDeployment.replicas }}
+  selector:
+    matchLabels:
+      app: fourlanches
+    {{- include "fourlanches-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: fourlanches
+      {{- include "fourlanches-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        envFrom:
+        - configMapRef:
+            name: {{ include "fourlanches-app.fullname" . }}-fourlanches-config
+        - secretRef:
+            name: {{ include "fourlanches-app.fullname" . }}-fourlanches-secret
+        image: {{ .Values.fourlanchesDeployment.fourlanches.image.repository }}:{{ .Values.fourlanchesDeployment.fourlanches.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: {{ .Values.fourlanchesDeployment.fourlanches.imagePullPolicy }}
+        name: fourlanches
+        ports:
+        - containerPort: 8080
+        resources: {}
