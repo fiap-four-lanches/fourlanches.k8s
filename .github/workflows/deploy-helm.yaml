@@ -16,9 +16,9 @@ jobs:
     - name: Azure login
       uses: azure/login@v1.4.6
       with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        client-id: ${{ secrets.ARM_CLIENT_ID }}
+        tenant-id: ${{ secrets.ARM_TENANT_ID }}
+        subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
     - name: Set up kubelogin for non-interactive login
       uses: azure/use-kubelogin@v1
@@ -41,8 +41,14 @@ jobs:
         envsubst < fourlanches-app/values.yaml > fourlanches-app/values-updated.yaml
         mv fourlanches-app/values-updated.yaml fourlanches-app/values.yaml
 
-    - name: Deploy to Kubernetes
-      run: |
-        helm install fourlanches-app fourlanches-app -f fourlanches-app/values.yaml
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+    - uses: azure/k8s-bake@v2.4
+      with:
+         renderEngine: 'helm'
+         helmChart: './fourlanches-app/'
+         overrideFiles: './fourlanches-app/values.yaml'
+         helm-version: 'latest'
+      id: bake
+
+    - uses: Azure/k8s-deploy@v4
+      with:
+         manifests: ${{ steps.bake.outputs.manifestsBundle }}
