@@ -1,16 +1,16 @@
-name: Deploy to Kubernetes
+name: Helm Change Management
 
 on:
-  push:
-    branches:
-      - main
-
-env:
-  CLUSTER_NAME: 'fourlanchesk8s'
-  RESOURCE_GROUP: 'eastus-fourlanches-rg'
+ push:
+   branches:
+   - main
+ pull_request:
+   branches:
+   - main
 
 jobs:
   deploy:
+    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
@@ -18,15 +18,18 @@ jobs:
       uses: actions/checkout@v2
 
     - uses: azure/login@v1
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
     - name: Set up kubelogin for non-interactive login
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: azure/use-kubelogin@v1
       with:
         kubelogin-version: 'v0.0.24'
 
     - name: Get K8s context
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: azure/aks-set-context@v3
       with:
         resource-group: eastus-fourlanches-rg
@@ -51,6 +54,31 @@ jobs:
          helm-version: 'latest'
       id: bake
 
+     - uses: actions/github-script@v6
+       if: github.event_name == 'pull_request'
+       env:
+         STATUS: "terraform\n${{ steps.bake.outputs.stdout }}"
+       with:
+         script: |
+           const output = `#### Helm template status 📖\`${{ steps.bake.outcome }}\`
+ 
+           <details><summary>Show template status</summary>
+ 
+           \`\`\`\n
+           ${process.env.STATUS}
+           \`\`\`
+ 
+           </details>
+           *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+ 
+           github.rest.issues.createComment({
+             issue_number: context.issue.number,
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             body: output
+           })
+
     - uses: Azure/k8s-deploy@v4
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       with:
          manifests: ${{ steps.bake.outputs.manifestsBundle }}
