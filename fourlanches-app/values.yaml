@@ -48,12 +48,12 @@ flywayFourlanchesMigration:
     - migrate
     - info
     env:
-      flywayUrl: jdbc:postgresql://{{ DB_HOST }}:5432/fourlanchesdb
+      flywayUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
     image:
       repository: flyway/flyway
       tag: latest
 fourlanchesConfig:
-  springDatasourceUrl: jdbc:postgresql://{{ DB_HOST }}:5432/fourlanchesdb
+  springDatasourceUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
   springJpaHibernateDdlAuto: none
 fourlanchesDeployment:
   fourlanches:
@@ -69,8 +69,8 @@ fourlanchesLoadbalancer:
     targetPort: 8080
   type: LoadBalancer
 fourlanchesSecret:
-  springDatasourceUsername: {{ DB_USER }}
-  springDatasourcePassword: {{ DB_PASSWORD }}
+  springDatasourceUsername: ${DB_USER}
+  springDatasourcePassword: ${DB_PASSWORD}
 fourlanchesSvc:
   ports:
   - port: 8080
