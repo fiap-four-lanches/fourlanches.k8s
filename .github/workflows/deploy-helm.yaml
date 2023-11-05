@@ -13,11 +13,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Get K8s context
       uses: azure/aks-set-context@v3
       with:
         resource-group: ${{ env.RESOURCE_GROUP }}
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ${{ env.CLUSTER_NAME }}
         admin: 'false'
         use-kubelogin: 'true'
