@@ -16,7 +16,7 @@ jobs:
     - name: Replace Secrets in Helm Values
       run: |
         export DB_USER=${{ secrets.DB_USER }}
-        export DB_PASSWORD="${{ secrets.DB_PASSWORD }}
+        export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
         export DB_HOST=${{ secrets.DB_HOST }}
         envsubst < fourlanches-app/values.yaml > fourlanches-app/values-updated.yaml
         mv fourlanches-app/values-updated.yaml fourlanches-app/values.yaml
