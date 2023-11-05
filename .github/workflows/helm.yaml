@@ -9,7 +9,7 @@ on:
    - main
 
 jobs:
-  deploy:
+  helm:
     permissions: write-all
     runs-on: ubuntu-latest
 
