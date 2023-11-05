@@ -40,6 +40,8 @@ flywayConfig:
     );
   v6AddColumnPaymentToOrderSql: |-
     ALTER TABLE orders ADD COLUMN payment_approved BOOLEAN NOT NULL DEFAULT(false);
+  v7AddColumnCreatedAtToOrderSql: |-
+    ALTER TABLE orders ADD COLUMN created_at TIMESTAMP; 
 flywayFourlanchesMigration:
   flyway:
     args:
