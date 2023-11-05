@@ -54,29 +54,29 @@ jobs:
          helm-version: 'latest'
       id: bake
 
-     - uses: actions/github-script@v6
-       if: github.event_name == 'pull_request'
-       env:
-         STATUS: "terraform\n${{ steps.bake.outputs.stdout }}"
-       with:
-         script: |
-           const output = `#### Helm template status 📖\`${{ steps.bake.outcome }}\`
- 
-           <details><summary>Show template status</summary>
- 
-           \`\`\`\n
-           ${process.env.STATUS}
-           \`\`\`
- 
-           </details>
-           *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
- 
-           github.rest.issues.createComment({
-             issue_number: context.issue.number,
-             owner: context.repo.owner,
-             repo: context.repo.repo,
-             body: output
-           })
+    - uses: actions/github-script@v6
+      if: github.event_name == 'pull_request'
+      env:
+        STATUS: "terraform\n${{ steps.bake.outputs.stdout }}"
+      with:
+        script: |
+          const output = `#### Helm template status 📖\`${{ steps.bake.outcome }}\`
+
+          <details><summary>Show template status</summary>
+
+          \`\`\`\n
+          ${process.env.STATUS}
+          \`\`\`
+
+          </details>
+          *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
 
     - uses: Azure/k8s-deploy@v4
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
