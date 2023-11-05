@@ -57,12 +57,12 @@ jobs:
     - uses: actions/github-script@v6
       if: github.event_name == 'pull_request'
       env:
-        STATUS: "terraform\n${{ steps.bake.outputs.stdout }}"
+        STATUS: "\n${{ steps.bake.outputs.stdout }}"
       with:
         script: |
           const output = `#### Helm template status 📖\`${{ steps.bake.outcome }}\`
 
-          <details><summary>Show template status</summary>
+          <details><summary>Show generated template</summary>
 
           \`\`\`\n
           ${process.env.STATUS}
