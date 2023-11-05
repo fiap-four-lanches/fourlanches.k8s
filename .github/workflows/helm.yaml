@@ -62,13 +62,6 @@ jobs:
         script: |
           const output = `#### Helm template status 📖\`${{ steps.bake.outcome }}\`
 
-          <details><summary>Show generated template</summary>
-
-          \`\`\`\n
-          ${process.env.STATUS}
-          \`\`\`
-
-          </details>
           *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
 
           github.rest.issues.createComment({
