@@ -59,9 +59,9 @@ fourlanchesDeployment:
   fourlanches:
     image:
       repository: augustoasilva/fourlanches
-      tag: latest
+      tag: sha-d2b50e9
     imagePullPolicy: Always
-  replicas: 3
+  replicas: 2
 fourlanchesLoadbalancer:
   ports:
   - port: 80

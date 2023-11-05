@@ -46,6 +46,7 @@ jobs:
       with:
          renderEngine: 'helm'
          helmChart: './fourlanches-app/'
+         releaseName: prod
          overrideFiles: './fourlanches-app/values.yaml'
          helm-version: 'latest'
       id: bake
