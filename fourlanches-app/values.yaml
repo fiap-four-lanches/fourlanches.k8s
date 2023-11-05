@@ -38,8 +38,8 @@ flywayConfig:
                                document varchar(255) NOT NULL,
                                UNIQUE(email, document)
     );
-  v6AddColumnPaymentToOrderSql: ALTER TABLE orders ADD COLUMN payment_approved BOOLEAN
-    NOT NULL DEFAULT(false);
+  v6AddColumnPaymentToOrderSql: |-
+    ALTER TABLE orders ADD COLUMN payment_approved BOOLEAN NOT NULL DEFAULT(false);
 flywayFourlanchesMigration:
   flyway:
     args:
