@@ -16,7 +16,7 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+        
     - name: Get K8s context
       uses: azure/aks-set-context@v3
       with:
