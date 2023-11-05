@@ -17,3 +17,5 @@ data:
     | toYaml | indent 1 }}
   V6__Add_Column_Payment_To_Order.sql: {{ .Values.flywayConfig.v6AddColumnPaymentToOrderSql
     | toYaml | indent 1 }}
+  v7_Add_Column_Created_At_To_Order.sql: {{ .Values.FlywayConfig.v7AddColumnCreatedAtToOrderSql
+      toYaml | indent 1}}
