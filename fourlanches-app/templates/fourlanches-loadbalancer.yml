@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "fourlanches-app.fullname" . }}-fourlanches-loadbalancer
+  name: {{ include "fourlanches-app.fullname" . }}-loadbalancer
   labels:
   {{- include "fourlanches-app.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.fourlanchesLoadbalancer.type }}
+  type: {{ .Values.loadBalancer.type }}
   selector:
     app: fourlanches
   {{- include "fourlanches-app.selectorLabels" . | nindent 4 }}
   ports:
-	{{- .Values.fourlanchesLoadbalancer.ports | toYaml | nindent 2 -}}
+	{{- .Values.loadBalancer.ports | toYaml | nindent 2 -}}

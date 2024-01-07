@@ -1,78 +1,28 @@
 kubernetesClusterDomain: fourlanchesk8s
-flywayConfig:
-  v1CreateProductTableSql: |-
-    CREATE TABLE products (
-                              id  SERIAL PRIMARY KEY NOT NULL,
-                              name    VARCHAR(255) NOT NULL,
-                              category    VARCHAR(255)    NOT NULL,
-                              description TEXT    NOT NULL,
-                              price  NUMERIC(10, 2),
-                              is_available BOOLEAN
-    );
-  v2AddInitialProductsSql: |-
-    INSERT INTO products (name, category, description, price, is_available) VALUES ('Veggie Burguer', 'MEAL', 'Pão de brioche, molho especial, burger de soja, cogumelo, queijo e cebola caramelada', 15.00, true);
-    INSERT INTO products (name, category, description, price, is_available) VALUES ('Coca Cola (Lata)', 'DRINK', 'Coca Cola em Lata de 350ml', 6.00, true);
-    INSERT INTO products (name, category, description, price, is_available) VALUES ('Fritas', 'EXTRAS', 'Porção de 150g de Batatas Fritas', 10.00, true);
-  v3CreateOrderTableSql: |-
-    CREATE TABLE orders (
-                            id  SERIAL PRIMARY KEY NOT NULL,
-                            customer_id integer,
-                            total_price  NUMERIC(10, 2) NOT NULL,
-                            status VARCHAR(255) NOT NULL
-    );
-  v4CreateOrderItemTableSql: |-
-    CREATE TABLE order_items (
-                                 id  SERIAL PRIMARY KEY NOT NULL,
-                                 order_id integer NOT NULL,
-                                 product_id integer NOT NULL,
-                                 quantity integer NOT NULL,
-                                 price  NUMERIC(10, 2) NOT NULL,
-                                 observation VARCHAR(255)
-    );
-  v5CreateCustomerTableSql: |-
-    CREATE TABLE customers (
-                               id  SERIAL PRIMARY KEY NOT NULL,
-                               first_name varchar(255) NOT NULL,
-                               last_name varchar(255) NOT NULL,
-                               email varchar(255) NOT NULL,
-                               document varchar(255) NOT NULL,
-                               UNIQUE(email, document)
-    );
-  v6AddColumnPaymentToOrderSql: |-
-    ALTER TABLE orders ADD COLUMN payment_approved BOOLEAN NOT NULL DEFAULT(false);
-  v7AddColumnCreatedAtToOrderSql: |-
-    ALTER TABLE orders ADD COLUMN created_at TIMESTAMP; 
-flywayFourlanchesMigration:
-  flyway:
-    args:
-    - info
-    - repair
-    - migrate
-    - info
-    env:
-      flywayUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
-    image:
-      repository: flyway/flyway
-      tag: latest
-fourlanchesConfig:
-  springDatasourceUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
-  springJpaHibernateDdlAuto: none
-fourlanchesDeployment:
-  fourlanches:
+
+deployment:
+  orderApp:
     image:
       repository: augustoasilva/fourlanches
       tag: sha-d2b50e9
     imagePullPolicy: Always
-  replicas: 2
-fourlanchesLoadbalancer:
+  paymentApp:
+    image:
+      repository: augustoasilva/fourlanches
+      tag: sha-d2b50e9
+    imagePullPolicy: Always
+loadBalancer:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 8080
   type: LoadBalancer
-fourlanchesSecret:
+secrets:
   springDatasourceUsername: ${DB_USER}
   springDatasourcePassword: ${DB_PASSWORD}
+configs:
+  springDatasourceUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
+  springJpaHibernateDdlAuto: none
 fourlanchesSvc:
   ports:
   - port: 8080
