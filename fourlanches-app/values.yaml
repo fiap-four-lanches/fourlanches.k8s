@@ -11,18 +11,22 @@ deployment:
       repository: augustoasilva/fourlanches
       tag: sha-d2b50e9
     imagePullPolicy: Always
+
 loadBalancer:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 8080
   type: LoadBalancer
+
 secrets:
   springDatasourceUsername: ${DB_USER}
   springDatasourcePassword: ${DB_PASSWORD}
+
 configs:
   springDatasourceUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
   springJpaHibernateDdlAuto: none
+  
 fourlanchesSvc:
   ports:
   - port: 8080
