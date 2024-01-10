@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "fourlanches-app.fullname" . }}-payment-deployment
+  name: {{ include "payment-app.fullname" . }}-payment-deployment
   labels:
     app: payment
-  {{- include "fourlanches-app.labels" . | nindent 4 }}
+  {{- include "payment-app.labels" . | nindent 4 }}
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: payment
-    {{- include "fourlanches-app.selectorLabels" . | nindent 6 }}
+    {{- include "payment-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         app: payment
-      {{- include "fourlanches-app.selectorLabels" . | nindent 8 }}
+      {{- include "payment-app.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - env:
@@ -23,9 +23,9 @@ spec:
           value: {{ quote .Values.kubernetesClusterDomain }}
         envFrom:
         - configMapRef:
-            name: {{ include "fourlanches-app.fullname" . }}-config
+            name: {{ include "payment-app.fullname" . }}-config
         - secretRef:
-            name: {{ include "fourlanches-app.fullname" . }}-secret
+            name: {{ include "payment-app.fullname" . }}-secret
         image: {{ .Values.deployment.paymentApp.image.repository }}:{{ .Values.deployment.paymentApp.image.tag }}
         imagePullPolicy: {{ .Values.deployment.paymentApp.imagePullPolicy }}
         name: payment

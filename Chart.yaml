@@ -1,0 +1,13 @@
+apiVersion: v2
+name: fourlanchesk8s
+description: A Helm chart for FourLanches.
+version: 0.1.0
+dependencies:
+  - name: order-app
+    version: 0.1.0
+    repository: "file://charts/order"
+    enabled: true
+  - name: payment-app
+    version: 0.1.0
+    repository: "file://charts/payment"
+    enabled: true
