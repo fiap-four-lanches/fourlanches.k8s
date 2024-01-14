@@ -12,7 +12,7 @@ spec:
         env:
         - name: FLYWAY_URL
           valueFrom:
-            configKeyRef:
+            configMapKeyRef:
               key: SPRING_DATASOURCE_URL
               name: {{ .Values.deployment.configRef }}
         - name: FLYWAY_USER

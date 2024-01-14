@@ -4,6 +4,10 @@ global: {
 }
 
 ### Sub Charts Specific Values ###
+kitchen-app:
+  enabled: true
+  deployment:
+    replicaCount: 1
 order-app:
   enabled: true
   deployment:
@@ -12,10 +16,7 @@ payment-app:
   enabled: true
   deployment:
     replicaCount: 1
-kitchen-app:
-  enabled: true
-  deployment:
-    replicaCount: 1
+
 
 loadBalancer:
   ports:
