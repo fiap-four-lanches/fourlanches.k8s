@@ -4,5 +4,5 @@ deployment:
     tag: sha-d2b50e9
   imagePullPolicy: Always
   replicaCount: 1
-  configRef: fourlanchesk8s-secret
+  configRef: fourlanchesk8s-config
   secretRef: fourlanchesk8s-secret
