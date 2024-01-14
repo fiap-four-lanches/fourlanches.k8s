@@ -6,11 +6,13 @@ deployment:
       repository: augustoasilva/fourlanches
       tag: sha-d2b50e9
     imagePullPolicy: Always
+    replicas: 1
   paymentApp:
     image:
       repository: augustoasilva/fourlanches
       tag: sha-d2b50e9
     imagePullPolicy: Always
+    replicas: 1
 
 loadBalancer:
   ports:
@@ -26,7 +28,7 @@ secrets:
 configs:
   springDatasourceUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
   springJpaHibernateDdlAuto: none
-  
+
 fourlanchesSvc:
   ports:
   - port: 8080

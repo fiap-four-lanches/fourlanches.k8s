@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "payment-app.fullname" . }}
+  labels:
+    {{ include "payment-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ quote .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{ include "payment-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "payment-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.deployment.configRef }}
+        - secretRef:
+            name: {{ .Values.deployment.secretRef }}
+        image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}
+        imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
+        name: {{ .Chart.Name }}
+        ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
+        resources: {}

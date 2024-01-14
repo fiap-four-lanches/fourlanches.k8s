@@ -6,3 +6,5 @@ deployment:
   replicaCount: 1
   configRef: fourlanchesk8s-secret
   secretRef: fourlanchesk8s-secret
+
+  
