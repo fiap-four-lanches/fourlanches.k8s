@@ -6,8 +6,12 @@ dependencies:
   - name: order-app
     version: 0.1.0
     repository: "file://charts/order"
-    enabled: true
+    condition: order-app.enabled
   - name: payment-app
     version: 0.1.0
     repository: "file://charts/payment"
-    enabled: true
+    condition: payment-app.enabled
+  - name: kitchen-app
+    version: 0.1.0
+    repository: "file://charts/kitchen"
+    condition: kitchen-app.enabled

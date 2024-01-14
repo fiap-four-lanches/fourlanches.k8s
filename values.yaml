@@ -1,18 +1,21 @@
-kubernetesClusterDomain: fourlanchesk8s
+### Global Values if any ###
+global: {
+  kubernetesClusterDomain: fourlanchesk8s
+}
 
-deployment:
-  orderApp:
-    image:
-      repository: augustoasilva/fourlanches
-      tag: sha-d2b50e9
-    imagePullPolicy: Always
-    replicas: 1
-  paymentApp:
-    image:
-      repository: augustoasilva/fourlanches
-      tag: sha-d2b50e9
-    imagePullPolicy: Always
-    replicas: 1
+### Sub Charts Specific Values ###
+order-app:
+  enabled: true
+  deployment:
+    replicaCount: 1
+payment-app:
+  enabled: true
+  deployment:
+    replicaCount: 1
+kitchen-app:
+  enabled: true
+  deployment:
+    replicaCount: 1
 
 loadBalancer:
   ports:
