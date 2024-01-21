@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Chart.Name }}-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: 20.7.122.19.nip.io
+    http:
+      paths:
+      - path: /payment-app
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-app-service
+            port:
+              number: 80
+      - path: /kitchen-app
+        pathType: Prefix
+        backend:
+          service:
+            name: kitchen-app-service
+            port:
+              number: 80

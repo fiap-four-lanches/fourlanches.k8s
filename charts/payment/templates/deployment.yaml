@@ -16,11 +16,15 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}
+          env:
+          - name: MONGO_CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                key: PAYMENT_DB_CONNECTION_STRING
+                name: {{ .Values.deployment.secretRef }}
           envFrom:
           - configMapRef:
               name: {{ .Values.deployment.configRef }}
-          - secretRef:
-              name: {{ .Values.deployment.secretRef }}
           image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
           ports:

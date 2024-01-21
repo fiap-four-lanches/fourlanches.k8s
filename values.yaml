@@ -9,7 +9,7 @@ kitchen-app:
   deployment:
     replicaCount: 1
 order-app:
-  enabled: true
+  enabled: false
   deployment:
     replicaCount: 1
 payment-app:
@@ -28,6 +28,12 @@ loadBalancer:
 secrets:
   springDatasourceUsername: ${DB_USER}
   springDatasourcePassword: ${DB_PASSWORD}
+  mongoHost: fourlanches-cosmosdb-account.mongo.cosmos.azure.com
+  mongoPort: "10255"
+  mongoUser: fourlanches-cosmosdb-account
+  mongoPass: HXCpAuAAbHUtyqzahrapHeXNtT9X2lj9IFsWDx81eupwn9dSy8yqKALsd4UKcUil2wCSoSZ4G2qfACDb0xYFJQ==
+  mongoDatabase: payment-db
+  mongoConnectionString: "mongodb://fourlanches-cosmosdb-account:HXCpAuAAbHUtyqzahrapHeXNtT9X2lj9IFsWDx81eupwn9dSy8yqKALsd4UKcUil2wCSoSZ4G2qfACDb0xYFJQ==@fourlanches-cosmosdb-account.mongo.cosmos.azure.com:10255/payment-db?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@fourlanches-cosmosdb-account@"
 
 configs:
   springDatasourceUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
@@ -35,6 +41,6 @@ configs:
 
 fourlanchesSvc:
   ports:
-  - port: 8080
-    targetPort: 8080
-  type: NodePort
+  - port: 80
+    targetPort: 80
+    protocol: TCP

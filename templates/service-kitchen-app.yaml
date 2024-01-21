@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "fourlanches-app.fullname" . }}-fourlanches-svc
+  name: kitchen-app-service
   labels:
     app: fourlanches
   {{- include "fourlanches-app.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.fourlanchesSvc.type }}
   selector:
-    app: fourlanches
+    app: kitchen-app
   {{- include "fourlanches-app.selectorLabels" . | nindent 4 }}
   ports:
 	{{- .Values.fourlanchesSvc.ports | toYaml | nindent 2 -}}

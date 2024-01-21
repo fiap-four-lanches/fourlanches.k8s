@@ -1,7 +1,7 @@
 deployment:
   image:
-    repository: augustoasilva/fourlanches
-    tag: sha-d2b50e9
+    repository: mockserver/mockserver
+    tag: latest
   imagePullPolicy: Always
   replicaCount: 1
   configRef: fourlanchesk8s-config
