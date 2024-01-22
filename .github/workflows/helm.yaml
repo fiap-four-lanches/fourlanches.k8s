@@ -43,8 +43,8 @@ jobs:
         export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
         export DB_HOST=${{ secrets.DB_HOST }}
         export MONGO_PAYMENTS_CONN_STRING=${{ secrets.MONGO_PAYMENTS_CONN_STRING }}
-        envsubst < /values.yaml > /values-updated.yaml
-        mv /values-updated.yaml /values.yaml
+        envsubst < ./values.yaml > ./values-updated.yaml
+        mv ./values-updated.yaml ./values.yaml
 
     - uses: azure/k8s-bake@v2.4
       with:
