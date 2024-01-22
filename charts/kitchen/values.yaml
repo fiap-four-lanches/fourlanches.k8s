@@ -1,0 +1,9 @@
+deployment:
+  image:
+    repository: mcr.microsoft.com/azuredocs/aks-helloworld
+    tag: v1
+  imagePullPolicy: Always
+  replicaCount: 1
+  configRef: fourlanchesk8s-config
+  secretRef: fourlanchesk8s-secret
+  

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "payment-app.name" . }}
+  labels:
+    {{ include "payment-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{ include "payment-app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "payment-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "payment-app.name" . }}
+          env:
+          - name: MONGO_CONNECTION_STRING
+            valueFrom:
+              secretKeyRef:
+                key: PAYMENT_DB_CONNECTION_STRING
+                name: {{ .Values.deployment.secretRef }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Values.deployment.configRef }}
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
+          ports:
+            - containerPort: 8080
+          resources: {}

@@ -32,7 +32,7 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: azure/aks-set-context@v3
       with:
-        resource-group: eastus-fourlanches-rg
+        resource-group: eastus2-fourlanches-rg
         cluster-name: fourlanchesk8s
         admin: 'false'
         use-kubelogin: 'true'
@@ -42,15 +42,16 @@ jobs:
         export DB_USER=${{ secrets.DB_USER }}
         export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
         export DB_HOST=${{ secrets.DB_HOST }}
-        envsubst < fourlanches-app/values.yaml > fourlanches-app/values-updated.yaml
-        mv fourlanches-app/values-updated.yaml fourlanches-app/values.yaml
+        export MONGO_PAYMENTS_CONN_STRING=${{ secrets.MONGO_PAYMENTS_CONN_STRING }}
+        envsubst < ./values.yaml > ./values-updated.yaml
+        mv ./values-updated.yaml ./values.yaml
 
     - uses: azure/k8s-bake@v2.4
       with:
          renderEngine: 'helm'
-         helmChart: './fourlanches-app/'
+         helmChart: './'
          releaseName: prod
-         overrideFiles: './fourlanches-app/values.yaml'
+         overrideFiles: './values.yaml'
          helm-version: 'latest'
       id: bake
 

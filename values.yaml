@@ -1,0 +1,27 @@
+### Global Values if any ###
+global: {
+  kubernetesClusterDomain: fourlanchesk8s
+}
+
+### Sub Charts Specific Values ###
+kitchen-app:
+  enabled: true
+  deployment:
+    replicaCount: 1
+order-app:
+  enabled: false
+  deployment:
+    replicaCount: 1
+payment-app:
+  enabled: true
+  deployment:
+    replicaCount: 1
+
+secrets:
+  springDatasourceUsername: ${DB_USER}
+  springDatasourcePassword: ${DB_PASSWORD}
+  mongoConnectionString: ${MONGO_PAYMENTS_CONN_STRING}
+
+configs:
+  springDatasourceUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
+  springJpaHibernateDdlAuto: none

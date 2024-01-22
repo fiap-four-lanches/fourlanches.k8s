@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Chart.Name }}-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+  - host: 20.96.239.149.nip.io
+    http:
+      paths:
+      - path: /payment(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: payment-app-service
+            port:
+              number: 80
+      - path: /kitchen(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: kitchen-app-service
+            port:
+              number: 80

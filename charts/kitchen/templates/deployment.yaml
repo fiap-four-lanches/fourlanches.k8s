@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kitchen-app.name" . }}
+  labels:
+    {{- include "kitchen-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deployment.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "kitchen-app.selectorLabels" . | nindent 8 }}
+  template:
+    metadata:
+      labels:
+        {{- include "kitchen-app.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "kitchen-app.name" . }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Values.deployment.configRef }}
+          - secretRef:
+              name: {{ .Values.deployment.secretRef }}
+          image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
+          ports:
+            - containerPort: 80
+          resources: {}
