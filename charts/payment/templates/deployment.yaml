@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "payment-app.fullname" . }}
+  name: {{ include "payment-app.name" . }}
   labels:
     {{ include "payment-app.labels" . | nindent 4 }}
 spec:
@@ -15,7 +15,7 @@ spec:
         {{- include "payment-app.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "payment-app.name" . }}
           env:
           - name: MONGO_CONNECTION_STRING
             valueFrom:
@@ -28,7 +28,5 @@ spec:
           image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            - containerPort: 8080
           resources: {}

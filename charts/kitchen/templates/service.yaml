@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kitchen-app.name" . }}-service
+  labels:
+    {{ include "kitchen-app.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+  {{ include "kitchen-app.selectorLabels" . | nindent 6 }}

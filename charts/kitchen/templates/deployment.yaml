@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "kitchen-app.fullname" . }}
+  name: {{ include "kitchen-app.name" . }}
   labels:
     {{- include "kitchen-app.labels" . | nindent 4 }}
 spec:
@@ -15,7 +15,7 @@ spec:
         {{- include "kitchen-app.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "kitchen-app.name" . }}
           envFrom:
           - configMapRef:
               name: {{ .Values.deployment.configRef }}
@@ -24,7 +24,5 @@ spec:
           image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
           ports:
-            - name: http
-              containerPort: 1080
-              protocol: TCP
+            - containerPort: 80
           resources: {}
