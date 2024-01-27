@@ -5,22 +5,26 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: webapprouting.kubernetes.azure.com
   rules:
-  - host: 20.96.239.149.nip.io
+  - host: payment.20.96.239.149.nip.io
     http:
-      paths:
-      - path: /payment(/|$)(.*)
-        pathType: Prefix
+      paths: 
+      - path: /
+        pathType: ImplementationSpecific
         backend:
           service:
             name: payment-app-service
             port:
               number: 80
-      - path: /kitchen(/|$)(.*)
-        pathType: Prefix
+
+  - host: kitchen.20.96.239.149.nip.io
+    http:
+      paths: 
+      - path: /
+        pathType: ImplementationSpecific
         backend:
           service:
             name: kitchen-app-service

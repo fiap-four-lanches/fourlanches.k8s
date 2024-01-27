@@ -6,7 +6,5 @@ metadata:
     app: fourlanches
   {{- include "fourlanches-app.labels" . | nindent 4 }}
 data:
-  SPRING_DATASOURCE_URL: {{ .Values.configs.springDatasourceUrl | quote
-    }}
-  SPRING_JPA_HIBERNATE_DDL_AUTO: {{ .Values.configs.springJpaHibernateDdlAuto
-    | quote }}
+  POSTGRESQL_DATASOURCE_URL: {{ .Values.configs.postgresqlDatasourceUrl | quote }}
+  MYSQL_DATASOURCE_URL: {{ .Values.configs.mysqlDatasourceUrl | quote }}
