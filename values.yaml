@@ -24,7 +24,7 @@ sonarqube:
 secrets:
   databaseLogin: ${DATABASE_LOGIN}
   databasePassword: ${DATABASE_PASSWORD}
-  mongoPaymentConnectionString: ${MONGO_PAYMENTS_CONN_STRING}
+  mongoPaymentConnectionString: "${MONGO_PAYMENTS_CONN_STRING}"
 
 configs:
   postgresqlDatasourceUrl: ${PSQL_DATASOURCE}
