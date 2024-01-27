@@ -16,12 +16,17 @@ payment-app:
   enabled: true
   deployment:
     replicaCount: 1
+sonarqube:
+  enabled: false
+  deployment:
+    replicaCount: 1
 
 secrets:
-  springDatasourceUsername: ${DB_USER}
-  springDatasourcePassword: ${DB_PASSWORD}
-  mongoConnectionString: ${MONGO_PAYMENTS_CONN_STRING}
+  databaseUsername: ${DATABASE_USER}
+  databasePassword: ${DATABASE_PASSWORD}
+  mongoPaymentConnectionString: ${MONGO_PAYMENTS_CONN_STRING}
 
 configs:
-  springDatasourceUrl: jdbc:postgresql://${DB_HOST}:5432/fourlanchesdb
+  postgresqlDatasourceUrl: ${PSQL_DATASOURCE}
+  mysqlDatasourceUrl: ${MYSQL_DATASOURCE}
   springJpaHibernateDdlAuto: none

@@ -39,9 +39,10 @@ jobs:
 
     - name: Replace Secrets in Helm Values
       run: |
-        export DB_USER=${{ secrets.DB_USER }}
-        export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-        export DB_HOST=${{ secrets.DB_HOST }}
+        export DATABASE_USER=${{ secrets.DATABASE_USER }}
+        export DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+        export PSQL_DATASOURCE=${{ secrets.PSQL_DATASOURCE }}
+        export MYSQL_DATASOURCE=${{ secrets.MYSQL_DATASOURCE }}
         export MONGO_PAYMENTS_CONN_STRING=${{ secrets.MONGO_PAYMENTS_CONN_STRING }}
         envsubst < ./values.yaml > ./values-updated.yaml
         mv ./values-updated.yaml ./values.yaml

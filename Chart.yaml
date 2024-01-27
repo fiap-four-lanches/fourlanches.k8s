@@ -15,3 +15,7 @@ dependencies:
     version: 0.1.0
     repository: "file://charts/kitchen"
     condition: kitchen-app.enabled
+  - name: sonarqube
+    version: 0.1.0
+    repository: "file://charts/sonarqube"
+    condition: sonarqube.enabled

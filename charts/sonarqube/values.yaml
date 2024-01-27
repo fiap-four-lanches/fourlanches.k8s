@@ -1,7 +1,7 @@
 deployment:
   image:
-    repository: felipemag/payment-app
-    tag: sha-33720f7
+    repository: sonarqube
+    tag: lts-community
   imagePullPolicy: Always
   replicaCount: 1
   configRef: fourlanchesk8s-config
