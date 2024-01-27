@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "order-app.fullname" . }}-flyway-migration
+  name: {{ include "order-app.name" . }}-flyway-migration
   labels:
   {{- include "order-app.labels" . | nindent 4 }}
 spec:
