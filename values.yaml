@@ -9,7 +9,7 @@ kitchen-app:
   deployment:
     replicaCount: 1
 order-app:
-  enabled: false
+  enabled: true
   deployment:
     replicaCount: 1
 payment-app:

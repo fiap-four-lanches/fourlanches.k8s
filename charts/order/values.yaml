@@ -1,7 +1,7 @@
 deployment:
   image:
-    repository: mcr.microsoft.com/azuredocs/aks-helloworld
-    tag: v1
+    repository: felipemag/order-app
+    tag: sha-daedc69
   imagePullPolicy: Always
   replicaCount: 1
   configRef: fourlanchesk8s-config
