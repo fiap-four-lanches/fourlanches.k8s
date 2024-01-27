@@ -1,9 +1,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ include "payment-app.fullname" . }}-flyway-migration
+  name: {{ include "order-app.fullname" . }}-flyway-migration
   labels:
-  {{- include "payment-app.labels" . | nindent 4 }}
+  {{- include "order-app.labels" . | nindent 4 }}
 spec:
   template:
     spec:
@@ -13,17 +13,17 @@ spec:
         - name: FLYWAY_URL
           valueFrom:
             configMapKeyRef:
-              key: SPRING_DATASOURCE_URL
+              key: POSTGRESQL_DATASOURCE_URL
               name: {{ .Values.deployment.configRef }}
         - name: FLYWAY_USER
           valueFrom:
             secretKeyRef:
-              key: SPRING_DATASOURCE_USERNAME
+              key: DATABASE_USERNAME
               name: {{ .Values.deployment.secretRef }}
         - name: FLYWAY_PASSWORD
           valueFrom:
             secretKeyRef:
-              key: SPRING_DATASOURCE_PASSWORD
+              key: DATABASE_PASSWORD
               name: {{ .Values.deployment.secretRef }}
         image: flyway/flyway:latest
         name: flyway
@@ -34,15 +34,15 @@ spec:
       restartPolicy: Never
       volumes:
       - configMap:
-          name: {{ include "payment-app.fullname" . }}-flyway-config
+          name: {{ include "order-app.fullname" . }}-flyway-config
         name: sql
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "payment-app.fullname" . }}-flyway-config
+  name: {{ include "order-app.fullname" . }}-flyway-config
   labels:
-  {{- include "payment-app.labels" . | nindent 4 }}
+  {{- include "order-app.labels" . | nindent 4 }}
 data:
   V1__Create_Product_Table.sql: {{ .Values.flywayConfig.v1CreateProductTableSql |
     toYaml | indent 1 }}
