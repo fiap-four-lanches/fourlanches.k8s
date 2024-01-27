@@ -39,7 +39,7 @@ jobs:
 
     - name: Replace Secrets in Helm Values
       run: |
-        export DATABASE_USER=${{ secrets.DATABASE_USER }}
+        export DATABASE_LOGIN=${{ secrets.DATABASE_LOGIN }}
         export DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
         export PSQL_DATASOURCE=${{ secrets.PSQL_DATASOURCE }}
         export MYSQL_DATASOURCE=${{ secrets.MYSQL_DATASOURCE }}
