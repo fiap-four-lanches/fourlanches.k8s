@@ -30,3 +30,14 @@ spec:
             name: kitchen-app-service
             port:
               number: 80
+
+  - host: order.20.96.239.149.nip.io
+    http:
+      paths: 
+      - path: /
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: order-app-service
+            port:
+              number: 80

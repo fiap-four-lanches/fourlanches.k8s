@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "order-app.fullname" . }}
+  name: {{ include "order-app.name" . }}
   labels:
     {{ include "order-app.labels" . | nindent 4 }}
 spec:
@@ -25,6 +25,6 @@ spec:
           imagePullPolicy: {{ .Values.deployment.imagePullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           resources: {}
