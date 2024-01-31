@@ -16,6 +16,10 @@ payment-app:
   enabled: true
   deployment:
     replicaCount: 1
+customer-app:
+  enabled: true
+  deployment:
+    replicaCount: 1
 sonarqube:
   enabled: false
   deployment:
