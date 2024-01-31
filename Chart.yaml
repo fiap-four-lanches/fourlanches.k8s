@@ -15,6 +15,10 @@ dependencies:
     version: 0.1.0
     repository: "file://charts/kitchen"
     condition: kitchen-app.enabled
+  - name: customer-app
+    version: 0.1.0
+    repository: "file://charts/customer"
+    condition: customer-app.enabled
   - name: sonarqube
     version: 0.1.0
     repository: "file://charts/sonarqube"
