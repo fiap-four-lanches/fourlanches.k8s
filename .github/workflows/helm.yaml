@@ -44,6 +44,11 @@ jobs:
         export DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
         export PSQL_DATASOURCE=${{ secrets.PSQL_DATASOURCE }}
         export MYSQL_DATASOURCE=${{ secrets.MYSQL_DATASOURCE }}
+        export RABBITMQ_HOST=${{ secrets.RABBITMQ_HOST }}
+        export RABBITMQ_USER=${{ secrets.RABBITMQ_USER }}
+        export RABBITMQ_PASSWORD=${{ secrets.RABBITMQ_PASSWORD }}
+        export RABBITMQ_VHOST=${{ secrets.RABBITMQ_VHOST }}
+        export RABBITMQ_HOST=${{ secrets.RABBITMQ_HOST }}
         envsubst < ./values.yaml > ./values-updated.yaml
         mv ./values-updated.yaml ./values.yaml
 

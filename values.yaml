@@ -29,8 +29,13 @@ secrets:
   databaseLogin: ${DATABASE_LOGIN}
   databasePassword: ${DATABASE_PASSWORD}
   mongoPaymentConnectionString: ${MONGO_PAYMENTS_CONN_STRING}
+  rabbitmqUser: ${RABBITMQ_USER}
+  rabbitmqPassword: ${RABBITMQ_PASSWORD}
 
 configs:
   postgresqlDatasourceUrl: ${PSQL_DATASOURCE}
   mysqlDatasourceUrl: ${MYSQL_DATASOURCE}
+  rabbitmqHost: ${RABBITMQ_HOST}
+  rabbitmqVhost: ${RABBITMQ_VHOST}
+  rabbitmqPort: ${RABBITMQ_PORT}
   springJpaHibernateDdlAuto: none
