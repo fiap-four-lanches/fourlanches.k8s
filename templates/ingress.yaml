@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: webapprouting.kubernetes.azure.com
   rules:
-  - host: payment.20.96.239.149.nip.io
+  - host: payment.172.171.65.50.nip.io
     http:
       paths: 
       - path: /
@@ -20,7 +20,7 @@ spec:
             port:
               number: 80
 
-  - host: kitchen.20.96.239.149.nip.io
+  - host: kitchen.172.171.65.50.nip.io
     http:
       paths: 
       - path: /
@@ -31,7 +31,7 @@ spec:
             port:
               number: 80
 
-  - host: order.20.96.239.149.nip.io
+  - host: order.172.171.65.50.nip.io
     http:
       paths: 
       - path: /
@@ -42,7 +42,7 @@ spec:
             port:
               number: 80
 
-  - host: customer.20.96.239.149.nip.io
+  - host: customer.172.171.65.50.nip.io
     http:
       paths: 
       - path: /

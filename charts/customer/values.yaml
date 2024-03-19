@@ -1,7 +1,7 @@
 deployment:
   image:
     repository: felipemag/customer-app
-    tag: sha-174b767
+    tag: sha-882fcd4
   imagePullPolicy: Always
   replicaCount: 1
   configRef: fourlanchesk8s-config

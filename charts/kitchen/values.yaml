@@ -1,7 +1,7 @@
 deployment:
   image:
     repository: felipemag/kitchen-app
-    tag: sha-bfa0ab2
+    tag: sha-05ccb69
   imagePullPolicy: Always
   replicaCount: 1
   configRef: fourlanchesk8s-config
