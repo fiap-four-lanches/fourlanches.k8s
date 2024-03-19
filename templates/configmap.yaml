@@ -8,3 +8,6 @@ metadata:
 data:
   POSTGRESQL_DATASOURCE_URL: {{ .Values.configs.postgresqlDatasourceUrl | quote }}
   MYSQL_DATASOURCE_URL: {{ .Values.configs.mysqlDatasourceUrl | quote }}
+  RABBITMQ_HOST: {{ .Values.configs.rabbitmqHost | quote }}
+  RABBITMQ_PORT: {{ .Values.configs.rabbitmqPort | quote }}
+  RABBITMQ_VHOST: {{ .Values.configs.rabbitmqVhost | quote }}
