@@ -16,7 +16,38 @@ Before you begin, ensure you have the following prerequisites:
 
 ### Project Structure
 
-- `/fourlanches-app`: Contains Helm charts for FourLanches application.
+Sure, I can help you generate a project structure for your README file. Based on the `Chart.yaml` file, it seems like your project is structured with each microservice having its own chart. Here's a suggested project structure:
+
+## Project Structure
+
+```
+├── Chart.yaml
+├── charts/
+│   ├── order-app/
+│   │   ├── Chart.yaml
+│   │   ├── templates/
+│   │   ├── values.yaml
+│   ├── payment-app/
+│   │   ├── Chart.yaml
+│   │   ├── templates/
+│   │   ├── values.yaml
+│   ├── kitchen-app/
+│   │   ├── Chart.yaml
+│   │   ├── templates/
+│   │   ├── values.yaml
+│   ├── customer-app/
+│   │   ├── Chart.yaml
+│   │   ├── templates/
+│   │   ├── values.yaml
+│   ├── sonarqube/
+│   │   ├── Chart.yaml
+│   │   ├── templates/
+│   │   ├── values.yaml
+├── values.yaml
+```
+
+Each application (order-app, payment-app, kitchen-app, customer-app, sonarqube) has its own directory under the `charts/` directory. Each of these directories contains a `Chart.yaml` file that describes the chart, a `values.yaml` file that specifies default configuration values, and a `templates/` directory that contains templates for Kubernetes resources.
+
 
 ### Usage
 
@@ -31,5 +62,5 @@ For local development and testing, you can use the following commands:
 - To lint and validate Helm charts:
 
   ```shell
-  helm lint ./fourlanches-app
+  helm lint .
   ```

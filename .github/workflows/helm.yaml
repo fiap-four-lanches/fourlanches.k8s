@@ -32,7 +32,7 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: azure/aks-set-context@v3
       with:
-        resource-group: eastus2-fourlanches-rg
+        resource-group: '${{ vars.RESOURCE_GROUP }}'
         cluster-name: fourlanchesk8s
         admin: 'false'
         use-kubelogin: 'true'
