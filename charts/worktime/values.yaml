@@ -1,0 +1,8 @@
+deployment:
+  image:
+    repository: felipemag/fourlanches-worktime-app
+    tag: sha-eaad3e8
+  imagePullPolicy: Always
+  replicaCount: 1
+  configRef: fourlanchesk8s-config
+  secretRef: fourlanchesk8s-secret
