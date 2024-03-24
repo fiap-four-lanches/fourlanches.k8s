@@ -1,7 +1,7 @@
 deployment:
   image:
     repository: felipemag/payment-app
-    tag: sha-31945f6
+    tag: sha-345605e
   imagePullPolicy: Always
   replicaCount: 1
   configRef: fourlanchesk8s-config
