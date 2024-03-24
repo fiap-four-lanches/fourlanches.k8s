@@ -23,6 +23,8 @@ spec:
                 key: PAYMENT_DB_CONNECTION_STRING
                 name: {{ .Values.deployment.secretRef }}
           envFrom:
+          - secretRef:
+              name: {{ .Values.deployment.secretRef }}
           - configMapRef:
               name: {{ .Values.deployment.configRef }}
           image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
