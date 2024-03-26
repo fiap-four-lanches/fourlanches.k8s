@@ -1,7 +1,7 @@
 deployment:
   image:
     repository: felipemag/fourlanches-worktime-app
-    tag: sha-c531745
+    tag: sha-2537ce1
   imagePullPolicy: Always
   replicaCount: 1
   configRef: fourlanchesk8s-config
