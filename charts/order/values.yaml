@@ -1,7 +1,7 @@
 deployment:
   image:
     repository: felipemag/order-app
-    tag: sha-aac6afd
+    tag: sha-b15eeaf
   imagePullPolicy: Always
   replicaCount: 1
   configRef: fourlanchesk8s-config
